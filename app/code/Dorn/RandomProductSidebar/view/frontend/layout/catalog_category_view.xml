@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <head>
+        <css src="Dorn_RandomProductSidebar::css/module.css" />
+    </head>
+
+    <body>
+        <referenceContainer name="sidebar.additional">
+            <block name="random.products"
+                   cacheable="false"
+                   class="Magento\Framework\View\Element\Template"
+                   template="Dorn_RandomProductSidebar::random_products.phtml"
+                   after="wishlist">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">
+                        Dorn\RandomProductSidebar\ViewModel\RandomProducts
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
