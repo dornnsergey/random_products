@@ -30,7 +30,7 @@ class RandomProducts implements ArgumentInterface
         return $collection;
     }
 
-    public function getProductImageUrl($product): string
+    public function getProductImageUrl(Product $product): string
     {
         return $this->imageFactory
             ->create()
