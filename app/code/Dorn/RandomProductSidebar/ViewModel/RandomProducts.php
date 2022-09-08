@@ -9,12 +9,14 @@ use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
+use Magento\Framework\Pricing\Helper\Data as PriceHelper;
 
 class RandomProducts implements ArgumentInterface
 {
     public function __construct(
+        public PriceHelper $priceHelper,
         private CollectionFactory $productCollectionFactory,
-        private ImageFactory $imageFactory
+        private ImageFactory $imageFactory,
     ) {
     }
 
@@ -22,7 +24,7 @@ class RandomProducts implements ArgumentInterface
     {
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToSelect(['name', 'price', 'thumbnail', 'url_key']);
-        $collection->addFieldToFilter('visibility', '4');
+        $collection->addFieldToFilter('visibility', Product\Visibility::VISIBILITY_BOTH);
         $collection->addAttributeToFilter('type_id', Product\Type::TYPE_SIMPLE);
         $collection->getSelect()->orderRand();
         $collection->setPage(1, 3);

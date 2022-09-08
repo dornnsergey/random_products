@@ -1,20 +1,20 @@
 <div>
-    <strong>Custom Sidebar</strong><br>
+    <strong><?= __('Custom Sidebar') ?></strong><br>
 
         <?php foreach ($block->getViewModel()->getProducts() as $product): ?>
 
             <div class="random-products__item">
-                <a class="random-products__item-img" href="<?= $product->getProductUrl() ?>">
-                    <img src="<?= $block->getViewModel()->getProductImageUrl($product) ?>"
-                        alt="">
+                <a class="random-products__item-img" href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>">
+                    <img src="<?= $escaper->escapeUrl($block->getViewModel()->getProductImageUrl($product)) ?>"
+                         alt="">
                 </a>
 
                 <div class="random-products__item-info">
-                    <a href="<?= $product->getProductUrl() ?>">
-                        <div class="random-products__item-title"><?= $product->getName() ?></div>
+                    <a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>">
+                        <div class="random-products__item-title"><?= $escaper->escapeHtml($product->getName()) ?></div>
                     </a>
                     <div class="random-products__item-price">
-                        <?= '$' . number_format($product->getPrice(), 2, '.', '') ?>
+                        <?= $block->getViewModel()->priceHelper->currency($product->getFinalPrice(), true, false) ?>
                     </div>
                 </div>
             </div>
