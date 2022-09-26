@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Dorn_Books::books"
+             title="Books"
+             module="Dorn_Books"
+             action="dorn/books/index"
+             sortOrder="9"
+             resource="Magento_Backend::system"/>
+    </menu>
+</config>

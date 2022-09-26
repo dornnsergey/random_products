@@ -1,0 +1,75 @@
+<?php
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Dorn\Books\ViewModel\Books\Index $viewModel
+ */
+$viewModel = $block->getViewModel();
+$books = array_values($viewModel->getBooksCollection());
+?>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th><?= __('Title') ?></th>
+            <th><?= __('Author') ?></th>
+            <th><?= __('Price') ?></th>
+            <th><?= __('Pages') ?></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php if ($books) : ?>
+    <?php foreach ($books as $i => $book): ?>
+        <tr>
+            <td>
+                <?= $i + 1 ?>
+            </td>
+            <td>
+                <?= $escaper->escapeHtml($book->getTitle()) ?>
+            </td>
+            <td>
+                <?= $escaper->escapeHtml($book->getAuthor()) ?>
+            </td>
+            <td>
+                <?= $book->getPrice() ?>
+            </td>
+            <td>
+                <?= $book->getPages() ?>
+            </td>
+            <td>
+                <a class="action primary"
+                   href="<?= $viewModel->getEditBookUrl($book->getId()) ?>">
+                    <?= __('Edit Book') ?>
+                </a>
+            </td>
+            <td>
+                <a class="action primary"
+                   href=""
+                   onclick="event.preventDefault();
+                            confirm('Are you sure?');
+                            this.nextElementSibling.submit()">
+                    <?= __('Delete Book') ?>
+                </a>
+                <form action="<?= $viewModel->getDeleteBookUrl($book->getId()) ?>"
+                      method="POST"
+                      style="display: none">
+                    <?= $block->getBlockHtml('formkey') ?>
+                </form>
+            </td>
+        </tr>
+    <?php endforeach ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="7">No books yet.</td>
+        </tr>
+    <?php endif ?>
+    </tbody>
+</table><br>
+
+<a class="action primary" href="<?= $viewModel->getCreateBookUrl() ?>">
+    <?= __('Add New Book') ?>
+</a>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+      layout="1column">
+
+    <body>
+        <referenceContainer name="content">
+            <block name="dorn.frontend.books.create"
+                   class="Magento\Framework\View\Element\Template"
+                   template="Dorn_Books::create.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">
+                        Dorn\Books\ViewModel\Books\Create
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+
+</page>

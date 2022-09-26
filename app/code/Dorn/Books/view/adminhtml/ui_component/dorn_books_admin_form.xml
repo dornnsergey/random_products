@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">dorn_books_admin_form.dorn_books_admin_form_data_source</item>
+            <item name="deps" xsi:type="string">dorn_books_admin_form.dorn_books_admin_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Create Book</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+
+        <item name="buttons" xsi:type="array">
+       <!--     <item name="back" xsi:type="string">Pfay\Contacts\Block\Adminhtml\Contact\Edit\BackButton</item>
+            <item name="delete" xsi:type="string">Pfay\Contacts\Block\Adminhtml\Contact\Edit\DeleteButton</item>-->
+            <item name="reset" xsi:type="string">Dorn\Books\Block\Adminhtml\Books\Edit\SaveButton</item>
+            <item name="save" xsi:type="string">Dorn\Books\Block\Adminhtml\Books\Edit\SaveButton</item>
+        </item>
+    </argument>
+
+    <dataSource name="dorn_books_admin_form">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Dorn\Books\Model\DataProvider</argument>
+            <argument name="name" xsi:type="string">dorn_books_admin_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="dorn/books/save"/>
+        </settings>
+    </dataSource>
+
+    <fieldset name="book">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Book Information</item>
+            </item>
+        </argument>
+
+        <field name="title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Book Title</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">title</item>
+                    <item name="dataScope" xsi:type="string">title</item>
+                </item>
+            </argument>
+        </field>
+
+
+        <field name="author">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Book Author</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">author</item>
+                    <item name="dataScope" xsi:type="string">author</item>
+                </item>
+            </argument>
+        </field>
+
+
+        <field name="price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Book Price</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">price</item>
+                    <item name="dataScope" xsi:type="string">price</item>
+                </item>
+            </argument>
+        </field>
+
+
+        <field name="pages">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Total Pages</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">pages</item>
+                    <item name="dataScope" xsi:type="string">pages</item>
+                </item>
+            </argument>
+        </field>
+
+    </fieldset>
+</form>
