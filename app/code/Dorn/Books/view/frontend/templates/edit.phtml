@@ -12,42 +12,42 @@ $book = $viewModel->getBook();
           method="POST"
           autocomplete="off">
         <fieldset class="fieldset create">
-            <legend class="legend">Update Book Information</legend><br>
+            <legend class="legend"><?= __('Update Book Information') ?></legend><br>
 
             <div class="field">
-                <label class="label" for="title">Book Title</label>
+                <label class="label" for="title"><?= __('Book Title') ?></label>
                 <div class="control">
-                    <input type="text" id="title" name="title" title="Book Title"
-                           class="input-text" value="<?= $book->getTitle() ?>">
+                    <input type="text" id="title" name="book[title]" title="<?= __('Book Title') ?>"
+                           class="input-text" value="<?= $escaper->escapeHtmlAttr($book->getTitle()) ?>">
                 </div>
             </div>
 
             <div class="field">
-                <label class="label" for="author">Author Name</label>
+                <label class="label" for="author"><?= __('Author Name') ?></label>
                 <div class="control">
-                    <input type="text" id="author" name="author" title="Author Name"
-                           class="input-text" value="<?= $book->getAuthor() ?>">
+                    <input type="text" id="author" name="book[author]" title="<?= __('Author Name') ?>"
+                           class="input-text" value="<?= $escaper->escapeHtmlAttr($book->getAuthor()) ?>">
                 </div>
             </div>
 
             <div class="field">
-                <label class="label" for="price">Book Price</label>
+                <label class="label" for="price"><?= __('Book Price') ?></label>
                 <div class="control">
-                    <input type="text" id="price" name="price" title="Book Price"
-                           class="input-text" value="<?= $book->getPrice() ?>">
+                    <input type="text" id="price" name="book[price]" title="<?= __('Book Price') ?>"
+                           class="input-text" value="<?= $escaper->escapeHtmlAttr($book->getPrice()) ?>">
                 </div>
             </div>
 
             <div class="field">
-                <label class="label" for="pages">Total Pages</label>
+                <label class="label" for="pages"><?= __('Total Pages') ?></label>
                 <div class="control">
-                    <input type="text" id="pages" name="pages" title="Total Pages"
-                           class="input-text"  value="<?= $book->getPages() ?>">
+                    <input type="text" id="pages" name="book[pages]" title="<?= __('Total Pages') ?>"
+                           class="input-text"  value="<?= $escaper->escapeHtmlAttr($book->getPages()) ?>">
                 </div>
             </div>
 
         <div class="actions-toolbar">
-                <button type="submit" class="action submit primary" title="Save">
+                <button type="submit" class="action submit primary" title="<?= __('Save') ?>">
                     <?= __('Save') ?>
                 </button>
         </div>

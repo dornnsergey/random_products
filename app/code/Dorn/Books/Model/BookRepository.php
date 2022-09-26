@@ -68,7 +68,7 @@ class BookRepository implements BookRepositoryInterface
             $this->resource->save($book);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(
-                __('Could not delete the book: %1', $exception->getMessage())
+                __('Could not save the book: %1', $exception->getMessage())
             );
         }
 

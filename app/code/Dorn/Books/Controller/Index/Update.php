@@ -29,24 +29,25 @@ class Update implements HttpPostActionInterface
      */
     public function execute()
     {
-        $bookData = $this->request->getPostValue();
+        $bookData = $this->request->getPostValue()['book'];
 
         foreach ($bookData as &$item) {
             $item = trim($item);
         }
 
-        $bookId = (int)$this->request->getParam('id');
+        $bookId = (int) $this->request->getParam('id');
 
         $book = $this->repository->getById($bookId);
 
-        $book->setTitle($bookData['title'])
-             ->setAuthor($bookData['author'])
-             ->setPrice((float)$bookData['price'])
-             ->setPages((int)$bookData['pages']);
+        $book->addData($bookData);
 
-        $this->repository->save($book);
+        try {
+            $this->repository->save($book);
 
-        $this->message->addSuccessMessage(__('Success! The book information was changed.'));
+            $this->message->addSuccessMessage(__('Success! The book information was changed.'));
+        } catch (CouldNotSaveException $e) {
+            $this->message->addErrorMessage($e->getMessage());
+        }
 
         return $this->redirectFactory->create()->setPath('books/index/edit', ['id' => $book->getId()]);
     }

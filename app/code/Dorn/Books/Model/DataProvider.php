@@ -6,6 +6,10 @@ namespace Dorn\Books\Model;
 
 use Dorn\Books\Model\ResourceModel\Book\CollectionFactory;
 use Magento\Framework\App\RequestInterface;
+use Magento\Framework\App\Response\Http;
+use Magento\Framework\App\Response\RedirectInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Message\ManagerInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
 
 class DataProvider extends AbstractDataProvider
@@ -17,6 +21,9 @@ class DataProvider extends AbstractDataProvider
         CollectionFactory $collectionFactory,
         private RequestInterface $request,
         private BookRepository $bookRepository,
+        private RedirectInterface $redirect,
+        private Http $response,
+        private ManagerInterface $message,
         array $meta = [],
         array $data = []
     ) {
@@ -26,15 +33,23 @@ class DataProvider extends AbstractDataProvider
 
     public function getData(): array
     {
-        $bookId = (int) $this->request->getParam('id') ?? null;
+        $bookId = (int) $this->request->getParam('id');
 
         if (! $bookId) {
             return [];
         }
 
+        try {
+            $book = $this->bookRepository->getById($bookId);
+        } catch (NoSuchEntityException $e) {
+            $this->message->addErrorMessage($e->getMessage());
+
+            $this->redirect->redirect($this->response, 'books');
+        }
+
         return [
             $bookId => [
-                'book' => $this->bookRepository->getById($bookId)->getData()
+                'book' => $book->getData()
             ]
         ];
     }

@@ -49,7 +49,7 @@ $books = array_values($viewModel->getBooksCollection());
                 <a class="action primary"
                    href=""
                    onclick="event.preventDefault();
-                            confirm('Are you sure?');
+                            confirm('<?= __('Are you sure to do this?') ?>');
                             this.nextElementSibling.submit()">
                     <?= __('Delete Book') ?>
                 </a>
@@ -63,7 +63,7 @@ $books = array_values($viewModel->getBooksCollection());
     <?php endforeach ?>
     <?php else: ?>
         <tr>
-            <td colspan="7">No books yet.</td>
+            <td colspan="7"><?= __('No books yet') ?>.</td>
         </tr>
     <?php endif ?>
     </tbody>

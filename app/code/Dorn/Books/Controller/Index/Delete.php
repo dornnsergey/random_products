@@ -8,6 +8,8 @@ use Dorn\Books\Model\BookRepository;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\RedirectFactory;
+use Magento\Framework\Exception\CouldNotDeleteException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\ManagerInterface;
 
 class Delete implements HttpPostActionInterface
@@ -25,11 +27,15 @@ class Delete implements HttpPostActionInterface
      */
     public function execute()
     {
-        $bookId = $this->request->getParam('id');
+        $bookId = (int) $this->request->getParam('id');
 
-        $this->repository->deleteById((int)$bookId);
+        try {
+            $this->repository->deleteById($bookId);
 
-        $this->message->addSuccessMessage(__('Success! The book was deleted.'));
+            $this->message->addSuccessMessage(__('Success! The book was deleted.'));
+        } catch (CouldNotDeleteException|NoSuchEntityException $e) {
+            $this->message->addErrorMessage($e->getMessage());
+        }
 
         return $this->redirectFactory->create()->setPath('books');
     }

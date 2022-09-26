@@ -1,55 +1,60 @@
 <?php
+
 /**
  * @var \Magento\Framework\View\Element\Template $block
  * @var \Magento\Framework\Escaper $escaper
  * @var \Dorn\Books\ViewModel\Books\Create $viewModel
  */
-$viewModel = $block->getViewModel();
-?>
-    <form class="form create account"
-          action="<?= $viewModel->getStoreBookUrl() ?>"
-          method="POST"
-          autocomplete="off">
-        <fieldset class="fieldset create">
-            <legend class="legend">Book Information</legend><br>
+$viewModel = $block->getViewModel() ?>
 
-            <div class="field required">
-                <label class="label" for="title">Book Title</label>
-                <div class="control">
-                    <input type="text" id="title" name="title" title="Book Title"
-                           class="input-text">
-                </div>
-            </div>
+<form class="form create account"
+      action="<?= $viewModel->getStoreBookUrl() ?>"
+      method="POST"
+      autocomplete="off"
+      id="book-form"
+      data-mage-init='{"validation": {"rules": {"title": {"required":true}}}}'
+>
+    <fieldset class="fieldset create">
+        <legend class="legend"><?= __('Book Information') ?></legend>
+        <br>
 
-            <div class="field required">
-                <label class="label" for="author">Author Name</label>
-                <div class="control">
-                    <input type="text" id="author" name="author" title="Author Name"
-                           class="input-text">
-                </div>
+        <div class="field required">
+            <label class="label" for="title"><?= __('Book Title') ?></label>
+            <div class="control">
+                <input type="text" id="title" name="book[title]" title="<?= __('Book Title') ?>"
+                       class="input-text">
             </div>
+        </div>
 
-            <div class="field required">
-                <label class="label" for="price">Book Price</label>
-                <div class="control">
-                    <input type="text" id="price" name="price" title="Book Price"
-                           class="input-text">
-                </div>
+        <div class="field required">
+            <label class="label" for="author"><?= __('Author Name') ?></label>
+            <div class="control">
+                <input type="text" id="author" name="book[author]" title="<?= __('Author Name') ?>"
+                       class="input-text">
             </div>
+        </div>
 
-            <div class="field required">
-                <label class="label" for="pages">Total Pages</label>
-                <div class="control">
-                    <input type="text" id="pages" name="pages" title="Total Pages"
-                           class="input-text">
-                </div>
+        <div class="field required">
+            <label class="label" for="price"><?= __('Book Price') ?></label>
+            <div class="control">
+                <input type="text" id="price" name="book[price]" title="<?= __('Book Price') ?>"
+                       class="input-text">
             </div>
+        </div>
+
+        <div class="field required">
+            <label class="label" for="pages"><?= __('Total Pages') ?></label>
+            <div class="control">
+                <input type="text" id="pages" name="book[pages]" title="<?= __('Total Pages') ?>"
+                       class="input-text">
+            </div>
+        </div>
 
         <div class="actions-toolbar">
-                <button type="submit" class="action submit primary" title="Create Book">
-                    <?= __('Create Book') ?>
-                </button>
+            <button type="submit" class="action submit primary" title="<?= __('Create Book') ?>">
+                <?= __('Create Book') ?>
+            </button>
         </div>
-    </form>
+</form>
 
 

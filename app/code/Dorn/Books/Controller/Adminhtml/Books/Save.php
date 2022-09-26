@@ -9,6 +9,9 @@ use Dorn\Books\Model\BookRepository;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\RedirectFactory;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Message\ManagerInterface;
 
 class Save implements HttpPostActionInterface
 {
@@ -16,16 +19,23 @@ class Save implements HttpPostActionInterface
         private RequestInterface $request,
         private BookRepository $bookRepository,
         private BookFactory $bookFactory,
-        private RedirectFactory $redirectFactory
+        private RedirectFactory $redirectFactory,
+        private ManagerInterface $message
     ) {
     }
 
     public function execute()
     {
-        $bookId = $this->request->getParam('id') ?? null;
+        $bookId = $this->request->getParam('id');
 
         if ($bookId) {
-            $book = $this->bookRepository->getById($bookId);
+            try {
+                $book = $this->bookRepository->getById($bookId);
+            } catch (NoSuchEntityException $e) {
+                $this->message->addErrorMessage($e->getMessage());
+
+                return $this->redirectFactory->create()->setPath('*/*/');
+            }
         } else {
             $book = $this->bookFactory->create();
         }
@@ -34,7 +44,13 @@ class Save implements HttpPostActionInterface
 
         $book = $book->addData($bookData);
 
-        $this->bookRepository->save($book);
+        try {
+            $this->bookRepository->save($book);
+
+            $this->message->addSuccessMessage(__('Success! The book was created.'));
+        } catch (CouldNotSaveException $e) {
+            $this->message->addErrorMessage($e->getMessage());
+        }
 
         return $this->redirectFactory->create()->setPath('dorn/books/index');
     }

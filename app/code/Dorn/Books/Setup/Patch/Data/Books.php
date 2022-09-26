@@ -6,8 +6,9 @@ namespace Dorn\Books\Setup\Patch\Data;
 
 use Dorn\Books\Model\BookFactory;
 use Dorn\Books\Model\ResourceModel\Book;
+use Magento\Framework\Setup\Patch\DataPatchInterface;
 
-class Books implements \Magento\Framework\Setup\Patch\DataPatchInterface
+class Books implements DataPatchInterface
 {
     public function __construct(
         private BookFactory $bookFactory,

@@ -25,11 +25,10 @@ class Store implements HttpPostActionInterface
 
     /**
      * @inheritDoc
-     * @throws CouldNotSaveException
      */
     public function execute()
     {
-        $bookData = $this->request->getPostValue();
+        $bookData = $this->request->getPostValue()['book'];
 
         foreach ($bookData as &$item) {
             $item = trim($item);
@@ -37,14 +36,15 @@ class Store implements HttpPostActionInterface
 
         $book = $this->bookFactory->create();
 
-        $book->setTitle($bookData['title'])
-             ->setAuthor($bookData['author'])
-             ->setPrice((float)$bookData['price'])
-             ->setPages((int)$bookData['pages']);
+        $book->addData($bookData);
 
-        $this->repository->save($book);
+        try {
+            $this->repository->save($book);
 
-        $this->message->addSuccessMessage(__('Success! The book was created.'));
+            $this->message->addSuccessMessage(__('Success! The book was created.'));
+        } catch (CouldNotSaveException $e) {
+            $this->message->addErrorMessage($e->getMessage());
+        }
 
         return $this->redirectFactory->create()->setPath('books');
     }
