@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Dorn\Books\Setup\Patch\Data;
 
 use Dorn\Books\Model\BookFactory;
-use Dorn\Books\Model\ResourceModel\Book;
+use Dorn\Books\Model\BookRepository;
+use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 
 class Books implements DataPatchInterface
 {
     public function __construct(
         private BookFactory $bookFactory,
-        private Book $resourceBook
+        private BookRepository $bookRepository
     ) {
     }
 
@@ -46,6 +47,10 @@ class Books implements DataPatchInterface
             'pages'  => '768'
         ]);
 
-        $this->resourceBook->save($book);
+        try {
+            $this->bookRepository->save($book);
+        } catch (CouldNotSaveException) {
+            return null;
+        }
     }
 }
