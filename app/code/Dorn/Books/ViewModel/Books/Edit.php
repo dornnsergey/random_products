@@ -37,7 +37,7 @@ class Edit implements \Magento\Framework\View\Element\Block\ArgumentInterface
         try {
             $book = $this->repository->getById($id);
         } catch (NoSuchEntityException $e) {
-            $this->message->addErrorMessage(__('Error! This book doesn\'t exist.'));
+            $this->message->addErrorMessage($e->getMessage());
 
             $this->redirect->redirect($this->response, 'books');
         }

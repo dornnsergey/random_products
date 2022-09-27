@@ -24,8 +24,6 @@ class Update implements HttpPostActionInterface
 
     /**
      * @inheritDoc
-     * @throws CouldNotSaveException
-     * @throws NoSuchEntityException
      */
     public function execute()
     {
@@ -37,7 +35,13 @@ class Update implements HttpPostActionInterface
 
         $bookId = (int) $this->request->getParam('id');
 
-        $book = $this->repository->getById($bookId);
+        try {
+            $book = $this->repository->getById($bookId);
+        } catch (NoSuchEntityException $e) {
+            $this->message->addErrorMessage($e->getMessage());
+
+            return $this->redirectFactory->create()->setPath('*/*/');
+        }
 
         $book->addData($bookData);
 

@@ -18,8 +18,6 @@ class Edit implements \Magento\Framework\App\Action\HttpGetActionInterface
      */
     public function execute()
     {
-
-
         return $this->pageFactory->create();
     }
 }
