@@ -30,9 +30,6 @@ class Edit implements \Magento\Framework\View\Element\Block\ArgumentInterface
         return $this->urlBuilder->getUrl('books/index/update', ['id' => $id]);
     }
 
-    /**
-     * @throws NoSuchEntityException
-     */
     public function getBook(): BookInterface
     {
         $id = (int) $this->request->getParam('id');
