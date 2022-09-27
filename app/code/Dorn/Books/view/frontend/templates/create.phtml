@@ -12,7 +12,7 @@ $viewModel = $block->getViewModel() ?>
       method="POST"
       autocomplete="off"
       id="book-form"
-      data-mage-init='{"validation": {"rules": {"title": {"required":true}}}}'
+      data-mage-init='{"validation": {}}'
 >
     <fieldset class="fieldset create">
         <legend class="legend"><?= __('Book Information') ?></legend>
@@ -22,7 +22,8 @@ $viewModel = $block->getViewModel() ?>
             <label class="label" for="title"><?= __('Book Title') ?></label>
             <div class="control">
                 <input type="text" id="title" name="book[title]" title="<?= __('Book Title') ?>"
-                       class="input-text">
+                       class="input-text minimum-length-2 maximum-length-225"
+                       data-validate="{'required-entry':true, 'validate-length': true}">
             </div>
         </div>
 
@@ -30,7 +31,8 @@ $viewModel = $block->getViewModel() ?>
             <label class="label" for="author"><?= __('Author Name') ?></label>
             <div class="control">
                 <input type="text" id="author" name="book[author]" title="<?= __('Author Name') ?>"
-                       class="input-text">
+                       class="input-text minimum-length-2 maximum-length-225"
+                       data-validate="{'required-entry':true, 'validate-length': true}">
             </div>
         </div>
 
@@ -38,7 +40,8 @@ $viewModel = $block->getViewModel() ?>
             <label class="label" for="price"><?= __('Book Price') ?></label>
             <div class="control">
                 <input type="text" id="price" name="book[price]" title="<?= __('Book Price') ?>"
-                       class="input-text">
+                       class="input-text digits-range-0-999999.99"
+                       data-validate="{'required-entry':true, 'validate-digits-range':true}">
             </div>
         </div>
 
@@ -46,7 +49,8 @@ $viewModel = $block->getViewModel() ?>
             <label class="label" for="pages"><?= __('Total Pages') ?></label>
             <div class="control">
                 <input type="text" id="pages" name="book[pages]" title="<?= __('Total Pages') ?>"
-                       class="input-text">
+                       class="input-text"
+                       data-validate="{'required-entry':true, 'validate-digits':true}">
             </div>
         </div>
 
