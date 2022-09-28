@@ -41,10 +41,8 @@ class DataProvider extends AbstractDataProvider
 
         try {
             $book = $this->bookRepository->getById($bookId);
-        } catch (NoSuchEntityException $e) {
-            $this->message->addErrorMessage($e->getMessage());
-
-            $this->redirect->redirect($this->response, 'books');
+        } catch (NoSuchEntityException) {
+            return [];
         }
 
         return [

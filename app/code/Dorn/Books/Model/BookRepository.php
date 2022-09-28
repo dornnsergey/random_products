@@ -6,7 +6,10 @@ namespace Dorn\Books\Model;
 
 use Dorn\Books\Api\BookRepositoryInterface;
 use Dorn\Books\Api\Data\BookInterface;
+use Dorn\Books\Api\Data\BookSearchResultsInterface;
 use Dorn\Books\Model\ResourceModel\Book as ResourceBook;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -16,6 +19,9 @@ class BookRepository implements BookRepositoryInterface
     public function __construct(
         private ResourceBook $resource,
         private BookFactory $bookFactory,
+        private ResourceBook\CollectionFactory $collectionFactory,
+        private CollectionProcessorInterface $collectionProcessor,
+        private BookSearchResultsFactory $searchResultsFactory
     ) {
     }
 
@@ -73,5 +79,17 @@ class BookRepository implements BookRepositoryInterface
         }
 
         return true;
+    }
+
+    public function getList(SearchCriteriaInterface $searchCriteria): BookSearchResultsInterface
+    {
+        $collection = $this->collectionFactory->create();
+        $this->collectionProcessor->process($searchCriteria, $collection);
+        $searchResults = $this->searchResultsFactory->create();
+        $searchResults->setSearchCriteria($searchCriteria);
+        $searchResults->setItems($collection->getItems());
+        $searchResults->setTotalCount($collection->getSize());
+
+        return $searchResults;
     }
 }

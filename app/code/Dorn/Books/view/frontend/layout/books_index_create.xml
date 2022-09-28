@@ -8,11 +8,6 @@
             <block name="dorn.frontend.books.create"
                    class="Magento\Framework\View\Element\Template"
                    template="Dorn_Books::create.phtml">
-                <arguments>
-                    <argument name="view_model" xsi:type="object">
-                        Dorn\Books\ViewModel\Books\Create
-                    </argument>
-                </arguments>
             </block>
         </referenceContainer>
     </body>

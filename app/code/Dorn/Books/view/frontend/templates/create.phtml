@@ -3,12 +3,11 @@
 /**
  * @var \Magento\Framework\View\Element\Template $block
  * @var \Magento\Framework\Escaper $escaper
- * @var \Dorn\Books\ViewModel\Books\Create $viewModel
  */
-$viewModel = $block->getViewModel() ?>
+?>
 
 <form class="form create account"
-      action="<?= $viewModel->getStoreBookUrl() ?>"
+      action="<?= $block->getUrl('books/index/store') ?>"
       method="POST"
       autocomplete="off"
       id="book-form"

@@ -8,7 +8,7 @@ $viewModel = $block->getViewModel();
 $book = $viewModel->getBook();
 ?>
     <form class="form create account"
-          action="<?= $viewModel->getUpdateBookUrl($book->getId()) ?>"
+          action="<?= $block->getUrl('books/index/edit', ['id' => $book->getId()]) ?>"
           method="POST"
           autocomplete="off"
           id="book-form"

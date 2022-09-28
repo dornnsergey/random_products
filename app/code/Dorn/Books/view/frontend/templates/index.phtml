@@ -41,7 +41,7 @@ $books = array_values($viewModel->getBooksCollection());
             </td>
             <td>
                 <a class="action primary"
-                   href="<?= $viewModel->getEditBookUrl($book->getId()) ?>">
+                   href="<?= $block->getUrl('books/index/edit', ['id' => $book->getId()]) ?>">
                     <?= __('Edit Book') ?>
                 </a>
             </td>
@@ -53,7 +53,7 @@ $books = array_values($viewModel->getBooksCollection());
                             this.nextElementSibling.submit()">
                     <?= __('Delete Book') ?>
                 </a>
-                <form action="<?= $viewModel->getDeleteBookUrl($book->getId()) ?>"
+                <form action="<?= $block->getUrl('books/index/delete', ['id' => $book->getId()]) ?>"
                       method="POST"
                       style="display: none">
                     <?= $block->getBlockHtml('formkey') ?>
@@ -69,7 +69,7 @@ $books = array_values($viewModel->getBooksCollection());
     </tbody>
 </table><br>
 
-<a class="action primary" href="<?= $viewModel->getCreateBookUrl() ?>">
+<a class="action primary" href="<?= $block->getUrl('books/index/create') ?>">
     <?= __('Add New Book') ?>
 </a>
 

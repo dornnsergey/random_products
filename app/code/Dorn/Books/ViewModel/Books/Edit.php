@@ -11,23 +11,16 @@ use Magento\Framework\App\Response\Http;
 use Magento\Framework\App\Response\RedirectInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\ManagerInterface;
-use Magento\Framework\UrlInterface;
 
 class Edit implements \Magento\Framework\View\Element\Block\ArgumentInterface
 {
     public function __construct(
-        private UrlInterface $urlBuilder,
         private RequestInterface $request,
         private BookRepository $repository,
         private RedirectInterface $redirect,
         private Http $response,
         private ManagerInterface $message
     ) {
-    }
-
-    public function getUpdateBookUrl(int $id): string
-    {
-        return $this->urlBuilder->getUrl('books/index/update', ['id' => $id]);
     }
 
     public function getBook(): BookInterface

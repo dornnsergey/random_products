@@ -13,43 +13,53 @@ class Book extends \Magento\Framework\Model\AbstractModel implements BookInterfa
         $this->_init(ResourceModel\Book::class);
     }
 
+    public function getId(): mixed
+    {
+        return $this->getData(self::ID);
+    }
+
+    public function setId($id): static
+    {
+        return $this->setData(self::ID, $id);
+    }
+
     public function getTitle(): string
     {
-        return $this->getData('title');
+        return $this->getData(self::TITLE);
     }
 
     public function setTitle(string $title): static
     {
-        return $this->setData('title', $title);
+        return $this->setData(self::TITLE, $title);
     }
 
     public function getAuthor(): string
     {
-        return $this->getData('author');
+        return $this->getData(self::AUTHOR);
     }
 
     public function setAuthor(string $author): static
     {
-        return $this->setData('author', $author);
+        return $this->setData(self::AUTHOR, $author);
     }
 
     public function getPrice(): float
     {
-        return (float)$this->getData('price');
+        return (float)$this->getData(self::PRICE);
     }
 
     public function setPrice(float $price): static
     {
-        return $this->setData('price', $price);
+        return $this->setData(self::PRICE, $price);
     }
 
     public function getPages(): int
     {
-        return (int)$this->getData('pages');
+        return (int)$this->getData(self::PAGES);
     }
 
     public function setPages(int $pages): static
     {
-        return $this->setData('pages', $pages);
+        return $this->setData(self::PAGES, $pages);
     }
 }

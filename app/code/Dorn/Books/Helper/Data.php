@@ -8,6 +8,8 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class Data
 {
+    public const XML_PATH_IS_ENABLED = 'books/general/enable';
+
     public function __construct(
         private ScopeConfigInterface $config
     ) {
@@ -15,6 +17,6 @@ class Data
 
     public function isModuleEnabled()
     {
-        return $this->config->getValue('books/general/enable');
+        return $this->config->getValue(self::XML_PATH_IS_ENABLED);
     }
 }

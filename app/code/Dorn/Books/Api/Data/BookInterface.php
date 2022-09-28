@@ -6,6 +6,20 @@ namespace Dorn\Books\Api\Data;
 
 interface BookInterface
 {
+    public const ID = 'id';
+
+    public const TITLE = 'title';
+
+    public const AUTHOR = 'author';
+
+    public const PRICE = 'price';
+
+    public const PAGES = 'pages';
+
+    public function getId(): mixed;
+
+    public function setId($id): static;
+
     public function getTitle(): string;
 
     public function setTitle(string $title): static;
