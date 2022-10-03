@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Dorn\Books\Controller\Index;
 
 use Dorn\Books\Model\BookRepository;
-use Magento\Framework\App\Action\HttpPostActionInterface;
+use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\ManagerInterface;
 
-class Delete implements HttpPostActionInterface
+class Delete implements HttpGetActionInterface
 {
     public function __construct(
         private RequestInterface $request,

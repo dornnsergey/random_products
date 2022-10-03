@@ -6,6 +6,7 @@ namespace Dorn\Books\Controller\Adminhtml\Books;
 
 use Dorn\Books\Model\BookFactory;
 use Dorn\Books\Model\BookRepository;
+use Dorn\Books\Request\SaveBookRequest;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\RedirectFactory;
@@ -20,12 +21,19 @@ class Save implements HttpPostActionInterface
         private BookRepository $bookRepository,
         private BookFactory $bookFactory,
         private RedirectFactory $redirectFactory,
-        private ManagerInterface $message
+        private ManagerInterface $message,
+        private SaveBookRequest $bookRequest
     ) {
     }
 
     public function execute()
     {
+        if (! $this->bookRequest->validate()) {
+            $this->message->addErrorMessage(__($this->bookRequest->getErrorMessage()));
+
+            return $this->redirectFactory->create()->setPath('*/*/create');
+        }
+
         $bookId = $this->request->getParam('id');
 
         if ($bookId) {
@@ -40,9 +48,7 @@ class Save implements HttpPostActionInterface
             $book = $this->bookFactory->create();
         }
 
-        $bookData = $this->request->getPostValue()['book'];
-
-        $book = $book->addData($bookData);
+        $book = $book->addData($this->bookRequest->getValidated());
 
         try {
             $this->bookRepository->save($book);

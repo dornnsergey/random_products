@@ -25,6 +25,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="acl" xsi:type="string">Magento_Backend::system</item>
                     <item name="storageConfig" xsi:type="array">
                         <item name="indexField" xsi:type="string">id</item>
                     </item>

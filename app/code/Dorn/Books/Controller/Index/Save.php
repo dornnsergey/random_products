@@ -6,20 +6,20 @@ namespace Dorn\Books\Controller\Index;
 
 use Dorn\Books\Model\BookFactory;
 use Dorn\Books\Model\BookRepository;
+use Dorn\Books\Request\SaveBookRequest;
 use Magento\Framework\App\Action\HttpPostActionInterface;
-use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Message\ManagerInterface;
 
-class Store implements HttpPostActionInterface
+class Save implements HttpPostActionInterface
 {
     public function __construct(
-        private RequestInterface $request,
         private BookFactory $bookFactory,
         private BookRepository $repository,
         private RedirectFactory $redirectFactory,
-        private ManagerInterface $message
+        private ManagerInterface $message,
+        private SaveBookRequest $bookRequest
     ) {
     }
 
@@ -28,15 +28,15 @@ class Store implements HttpPostActionInterface
      */
     public function execute()
     {
-        $bookData = $this->request->getPostValue()['book'];
+        if (! $this->bookRequest->validate()) {
+            $this->message->addErrorMessage(__($this->bookRequest->getErrorMessage()));
 
-        foreach ($bookData as &$item) {
-            $item = trim($item);
+            return $this->redirectFactory->create()->setPath('*/*/create');
         }
 
         $book = $this->bookFactory->create();
 
-        $book->addData($bookData);
+        $book->addData($this->bookRequest->getValidated());
 
         try {
             $this->repository->save($book);

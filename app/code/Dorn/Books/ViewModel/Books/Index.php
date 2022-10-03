@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dorn\Books\ViewModel\Books;
 
-use Dorn\Books\Model\Book;
+use Dorn\Books\Api\Data\BookInterface;
 use Dorn\Books\Model\ResourceModel\Book\CollectionFactory;
 
 class Index implements \Magento\Framework\View\Element\Block\ArgumentInterface
@@ -15,7 +15,7 @@ class Index implements \Magento\Framework\View\Element\Block\ArgumentInterface
     }
 
     /**
-     * @return Book[]
+     * @return BookInterface[]
      */
     public function getBooksCollection(): ?array
     {

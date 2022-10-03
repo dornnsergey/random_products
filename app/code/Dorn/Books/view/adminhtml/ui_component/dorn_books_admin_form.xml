@@ -38,6 +38,7 @@
         <settings>
             <submitUrl path="dorn/books/save"/>
         </settings>
+        <aclResource>Magento_Backend::system</aclResource>
     </dataSource>
 
     <fieldset name="book">

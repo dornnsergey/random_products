@@ -22,6 +22,7 @@ class DeleteButton implements ButtonProviderInterface
     public function getButtonData(): array
     {
         $data = [];
+
         if ($this->checkIfBookExists()) {
             $data = [
                 'label'      => __('Delete'),
@@ -31,6 +32,7 @@ class DeleteButton implements ButtonProviderInterface
                 ) . '\', \'' . $this->getDeleteUrl() . '\', {"data": {}})'
             ];
         }
+
         return $data;
     }
 

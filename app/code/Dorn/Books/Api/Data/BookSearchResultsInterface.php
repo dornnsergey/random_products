@@ -6,6 +6,9 @@ namespace Dorn\Books\Api\Data;
 
 interface BookSearchResultsInterface extends \Magento\Framework\Api\SearchResultsInterface
 {
+    /**
+     * @return BookInterface[]
+     */
     public function getItems(): array;
 
     /**

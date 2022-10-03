@@ -3,7 +3,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-            <uiComponent name="dorn_books_admin_form" cacheable="false"/>
+            <uiComponent name="dorn_books_admin_form"/>
         </referenceContainer>
     </body>
 </page>

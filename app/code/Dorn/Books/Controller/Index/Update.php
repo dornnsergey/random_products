@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Dorn\Books\Controller\Index;
 
 use Dorn\Books\Model\BookRepository;
+use Dorn\Books\Request\SaveBookRequest;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\RedirectFactory;
@@ -18,7 +19,8 @@ class Update implements HttpPostActionInterface
         private RequestInterface $request,
         private BookRepository $repository,
         private RedirectFactory $redirectFactory,
-        private ManagerInterface $message
+        private ManagerInterface $message,
+        private SaveBookRequest $bookRequest
     ) {
     }
 
@@ -27,10 +29,10 @@ class Update implements HttpPostActionInterface
      */
     public function execute()
     {
-        $bookData = $this->request->getPostValue()['book'];
+        if (! $this->bookRequest->validate()) {
+            $this->message->addErrorMessage(__($this->bookRequest->getErrorMessage()));
 
-        foreach ($bookData as &$item) {
-            $item = trim($item);
+            return $this->redirectFactory->create()->setPath('*/*/create');
         }
 
         $bookId = (int) $this->request->getParam('id');
