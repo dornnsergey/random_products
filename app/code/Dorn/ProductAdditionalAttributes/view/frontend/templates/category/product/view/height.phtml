@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @var \Magento\Framework\View\TemplateEngine\Php $this
+ */
+
+$product = $this->helper(\Magento\Catalog\Helper\Data::class)->getProduct();
+
+if ($product->getData('showing_of_the_product_height_on_product_page')
+    && $product->getData('height')): ?>
+    <div>
+        <strong>Height:</strong>
+        <?= $product->getData('height') ?>
+    </div>
+<?php endif ?>
