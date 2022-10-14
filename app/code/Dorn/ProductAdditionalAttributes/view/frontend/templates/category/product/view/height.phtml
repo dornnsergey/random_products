@@ -6,10 +6,9 @@
 
 $product = $this->helper(\Magento\Catalog\Helper\Data::class)->getProduct();
 
-if ($product->getData('showing_of_the_product_height_on_product_page')
-    && $product->getData('height')): ?>
+if ($product->getShowingOfTheProductHeightOnProductPage() && $product->getHeight()): ?>
     <div>
-        <strong>Height:</strong>
-        <?= $product->getData('height') ?>
+        <strong><?= __('Height') ?>:</strong>
+        <?= $product->getHeight() ?>
     </div>
 <?php endif ?>
