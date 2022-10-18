@@ -45,7 +45,7 @@ class Update implements HttpPostActionInterface
             return $this->redirectFactory->create()->setPath('*/*/');
         }
 
-        $book->addData($bookData);
+        $book->addData($this->bookRequest->getValidated());
 
         try {
             $this->repository->save($book);
