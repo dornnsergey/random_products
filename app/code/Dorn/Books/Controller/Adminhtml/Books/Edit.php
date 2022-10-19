@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Dorn\Books\Controller\Adminhtml\Books;
 
+use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
 
-class Edit implements \Magento\Framework\App\Action\HttpGetActionInterface
+class Edit implements HttpGetActionInterface
 {
     public function __construct(
         private PageFactory $pageFactory
@@ -16,7 +18,7 @@ class Edit implements \Magento\Framework\App\Action\HttpGetActionInterface
     /**
      * @inheritDoc
      */
-    public function execute()
+    public function execute(): ResultInterface
     {
         return $this->pageFactory->create();
     }

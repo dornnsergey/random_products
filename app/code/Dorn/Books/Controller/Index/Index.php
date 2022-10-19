@@ -7,6 +7,7 @@ namespace Dorn\Books\Controller\Index;
 use Dorn\Books\Helper\Data;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\Result\ForwardFactory;
+use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
 
 class Index implements HttpGetActionInterface
@@ -21,7 +22,7 @@ class Index implements HttpGetActionInterface
     /**
      * @inheritDoc
      */
-    public function execute()
+    public function execute(): ResultInterface
     {
         if (! $this->helper->isModuleEnabled()) {
             return $this->forwardFactory->create()->forward('defaultNoRoute');

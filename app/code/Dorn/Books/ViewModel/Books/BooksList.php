@@ -6,8 +6,9 @@ namespace Dorn\Books\ViewModel\Books;
 
 use Dorn\Books\Api\Data\BookInterface;
 use Dorn\Books\Model\ResourceModel\Book\CollectionFactory;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 
-class Index implements \Magento\Framework\View\Element\Block\ArgumentInterface
+class BooksList implements ArgumentInterface
 {
     public function __construct(
         private CollectionFactory $bookCollectionFactory

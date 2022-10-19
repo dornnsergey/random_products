@@ -11,7 +11,7 @@
                    cacheable="false">
                 <arguments>
                     <argument name="view_model" xsi:type="object">
-                        Dorn\Books\ViewModel\Books\Index
+                        Dorn\Books\ViewModel\Books\BooksList
                     </argument>
                 </arguments>
             </block>

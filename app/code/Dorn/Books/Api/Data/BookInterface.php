@@ -16,6 +16,10 @@ interface BookInterface
 
     public const PAGES = 'pages';
 
+    public const CREATED_AT = 'created_at';
+
+    public const UPDATED_AT = 'updated_at';
+
     public function getId(): mixed;
 
     public function setId($id): static;
@@ -35,4 +39,12 @@ interface BookInterface
     public function getPages(): int;
 
     public function setPages(int $pages): static;
+
+    public function getCreatedAt(): string;
+
+    public function setCreatedAt(string $createdAt): static;
+
+    public function getUpdatedAt(): string;
+
+    public function setUpdatedAt(string $updatedAt): static;
 }

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Dorn\Books\Controller\Index;
 
 use Dorn\Books\Model\BookRepository;
-use Dorn\Books\Request\SaveBookRequest;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\Result\RedirectFactory;
+use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Message\ManagerInterface;
@@ -19,22 +19,15 @@ class Update implements HttpPostActionInterface
         private RequestInterface $request,
         private BookRepository $repository,
         private RedirectFactory $redirectFactory,
-        private ManagerInterface $message,
-        private SaveBookRequest $bookRequest
+        private ManagerInterface $message
     ) {
     }
 
     /**
      * @inheritDoc
      */
-    public function execute()
+    public function execute(): ResultInterface
     {
-        if (! $this->bookRequest->validate()) {
-            $this->message->addErrorMessage(__($this->bookRequest->getErrorMessage()));
-
-            return $this->redirectFactory->create()->setPath('*/*/create');
-        }
-
         $bookId = (int) $this->request->getParam('id');
 
         try {
@@ -43,9 +36,13 @@ class Update implements HttpPostActionInterface
             $this->message->addErrorMessage($e->getMessage());
 
             return $this->redirectFactory->create()->setPath('*/*/');
+        } catch (\Exception) {
+            $this->message->addErrorMessage(__('Something went wrong.'));
+
+            return $this->redirectFactory->create()->setPath('*/*/');
         }
 
-        $book->addData($this->bookRequest->getValidated());
+        $book->addData($this->request->getParam('book'));
 
         try {
             $this->repository->save($book);
@@ -53,6 +50,8 @@ class Update implements HttpPostActionInterface
             $this->message->addSuccessMessage(__('Success! The book information was changed.'));
         } catch (CouldNotSaveException $e) {
             $this->message->addErrorMessage($e->getMessage());
+        } catch (\Exception) {
+            $this->message->addErrorMessage(__('Something went wrong.'));
         }
 
         return $this->redirectFactory->create()->setPath('books/index/edit', ['id' => $book->getId()]);

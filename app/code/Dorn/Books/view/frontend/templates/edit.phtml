@@ -11,8 +11,8 @@ $book = $viewModel->getBook();
           action="<?= $block->getUrl('books/index/update', ['id' => $book->getId()]) ?>"
           method="POST"
           autocomplete="off"
-          id="book-form"
-          data-mage-init='{"validation": {}}'>
+          id="book-form">
+          <!--data-mage-init='{"validation": {}}'-->
         <fieldset class="fieldset create">
             <legend class="legend"><?= __('Update Book Information') ?></legend><br>
 
@@ -22,8 +22,7 @@ $book = $viewModel->getBook();
                     <input type="text" id="title"
                            name="book[title]"
                            title="<?= __('Book Title') ?>"
-                           class="input-text minimum-length-2 maximum-length-225"
-                           data-validate="{'required-entry':true, 'validate-length': true}"
+
                            value="<?= $escaper->escapeHtmlAttr($book->getTitle()) ?>">
                 </div>
             </div>
