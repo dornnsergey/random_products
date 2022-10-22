@@ -4,10 +4,8 @@
 
     <body>
         <referenceContainer name="sidebar.additional">
-            <block name="random.products"
-                   cacheable="false"
-                   class="Magento\Framework\View\Element\Template"
-                   template="Dorn_RandomProductSidebar::random_products.phtml"
+            <block name="random.products.sidebar"
+                   template="Dorn_RandomProductSidebar::random-products-sidebar.phtml"
                    after="wishlist">
                 <arguments>
                     <argument name="view_model" xsi:type="object">

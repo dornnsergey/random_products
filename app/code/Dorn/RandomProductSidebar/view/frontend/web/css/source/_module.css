@@ -1,0 +1,22 @@
+.random-products__item {
+  display: flex;
+  margin-top: 20px;
+}
+.random-products__item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 15px 0;
+}
+.random-products__item-img {
+  margin-right: 20px;
+  min-width: 73px;
+  min-height: 88px;
+}
+.random-products__item-title {
+  color: #000;
+}
+.random-products__item-price {
+  font-weight: bold;
+}
+/*# sourceMappingURL=_module.css.map */

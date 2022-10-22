@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @var Magento\Framework\View\Element\Template $block
+ * @var \Dorn\RandomProductSidebar\ViewModel\RandomProducts $viewModel
+ */
+$viewModel = $block->getViewModel();
+$products = $viewModel->getProductsJson()
+
+?>
+<div data-bind="scope: 'sidebar-random-products'">
+    <strong><?= __('Custom Sidebar') ?></strong><br>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "sidebar-random-products": {
+                        "component": "Dorn_RandomProductSidebar/js/category/sidebar-random-products",
+                        "products": <?= $products ?>
+                    }
+                }
+            }
+        }
+    }
+
+</script>
