@@ -2,28 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Dorn\RandomProductSidebar\ViewModel;
+namespace Dorn\RandomProductSidebar\Service;
 
 use Magento\Catalog\Helper\Image;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Framework\Escaper;
 use Magento\Framework\Pricing\Helper\Data;
-use Magento\Framework\Serialize\SerializerInterface;
-use Magento\Framework\View\Element\Block\ArgumentInterface;
 
-class RandomProducts implements ArgumentInterface
+class ProductManager
 {
     public function __construct(
         private CollectionFactory $productCollectionFactory,
         private Escaper $escaper,
         private Data $priceHelper,
-        private Image $imageHelper,
-        private SerializerInterface $serializer
+        private Image $imageHelper
     ) {
     }
 
-    public function getProductsJson(): bool|string
+    public function getRandomProducts(): array
     {
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToSelect(['name', 'price', 'thumbnail', 'url_key']);
@@ -43,6 +40,6 @@ class RandomProducts implements ArgumentInterface
             ];
         }
 
-        return $this->serializer->serialize($result);
+        return $result;
     }
 }

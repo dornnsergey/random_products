@@ -1,4 +1,4 @@
-define(['uiComponent'], function (Component) {
+define(['jquery', 'uiComponent'], function ($, Component) {
     'use strict';
 
     return Component.extend({
@@ -6,10 +6,19 @@ define(['uiComponent'], function (Component) {
             "template": "Dorn_RandomProductSidebar/product"
         },
 
+        hasProducts: function () {
+            return this.products.length;
+        },
+
         initialize: function () {
             this._super();
 
-            console.log(this.products);
+            $.ajax({
+                url: "/data/ui/randomproducts",
+                async: false,
+                success: result => this.products = result
+            });
+
             return this;
         }
     });

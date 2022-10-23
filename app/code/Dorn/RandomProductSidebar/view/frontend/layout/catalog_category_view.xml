@@ -7,11 +7,6 @@
             <block name="random.products.sidebar"
                    template="Dorn_RandomProductSidebar::random-products-sidebar.phtml"
                    after="wishlist">
-                <arguments>
-                    <argument name="view_model" xsi:type="object">
-                        Dorn\RandomProductSidebar\ViewModel\RandomProducts
-                    </argument>
-                </arguments>
             </block>
         </referenceContainer>
     </body>
