@@ -1,4 +1,4 @@
-define(['jquery', 'uiComponent'], function ($, Component) {
+define(['ko', 'jquery', 'uiComponent', 'urlBuilder'], function (ko, $, Component, urlBuilder) {
     'use strict';
 
     return Component.extend({
@@ -6,17 +6,16 @@ define(['jquery', 'uiComponent'], function ($, Component) {
             "template": "Dorn_RandomProductSidebar/product"
         },
 
-        hasProducts: function () {
-            return this.products.length;
-        },
+        products: ko.observableArray([]),
 
         initialize: function () {
             this._super();
 
             $.ajax({
-                url: "/data/ui/randomproducts",
-                async: false,
-                success: result => this.products = result
+                url: urlBuilder.build("/data/ui/randomproducts"),
+                success: function (result) {
+                   this.products(result);
+                }
             });
 
             return this;
