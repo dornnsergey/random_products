@@ -16,7 +16,7 @@
                     <label>Title</label>
                 </field>
                 <field id="shipping_fee" translate="label" type="text" sortOrder="8" showInDefault="1"
-                       showInWebsite="1" showInStore="0">
+                       showInWebsite="1" showInStore="0" canRestore="1">
                     <label>Shipping Fee</label>
                     <validate>validate-number validate-greater-than-zero</validate>
                 </field>

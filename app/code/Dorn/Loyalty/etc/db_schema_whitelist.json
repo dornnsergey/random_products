@@ -1,0 +1,17 @@
+{
+  "sales_order_coins_transaction": {
+    "column": {
+      "id": true,
+      "order_id": true,
+      "is_admin_added": true,
+      "coins_received": true,
+      "coins_spend": true
+    },
+    "index": {
+      "SALES_ORDER_COINS_TRANSACTION_ID": true
+    },
+    "constraint": {
+      "PRIMARY": true
+    }
+  }
+}

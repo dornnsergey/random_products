@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\View\TemplateEngine\Php $this
+ * @var \Dorn\Loyalty\ViewModel\CoinsList $viewModel
+ */
+
+$viewModel = $block->getViewModel();
+$data = array_values($viewModel->getData());
+$totalCustomerCoins = round($viewModel->getTotalCustomerCoins(), 2);
+$priceHelper = $this->helper(Magento\Framework\Pricing\Helper\Data::class);
+?>
+
+<div>
+    <span><?= __('You have got <strong>%1</strong> coins.', $totalCustomerCoins) ?></span>
+</div><br/>
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th><?= __('Occasion') ?></th>
+        <th><?= __('Amount of Purchase') ?></th>
+        <th><?= __('Coins Received') ?></th>
+        <th><?= __('Coins Spend') ?></th>
+        <th><?= __('Date of Purchase') ?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php if (! empty($data)) : ?>
+        <?php foreach ($data as $i => $row): ?>
+        <?php $row['occasion'] = $row['added_by_admin'] ? __('Added by admin') : $row['increment_id'] ?>
+            <tr>
+                <td>
+                    <?= $i + 1 ?>
+                </td>
+                <td>
+                    <?= $row['occasion'] ?>
+                </td>
+                <td>
+                    <?= $priceHelper->currency($row['base_subtotal']) ?>
+                </td>
+                <td>
+                    <?= $row['coins_received'] ?>
+                </td>
+                <td>
+                    <?= $row['coins_spend'] ?>
+                </td>
+                <td>
+                    <?= date('M d, Y h:i:s A', strtotime($row['created_at'])) ?>
+                </td>
+            </tr>
+        <?php endforeach ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="6"><?= __('Not Found Any Records.') ?>.</td>
+        </tr>
+    <?php endif ?>
+    </tbody>
+</table>
+
+

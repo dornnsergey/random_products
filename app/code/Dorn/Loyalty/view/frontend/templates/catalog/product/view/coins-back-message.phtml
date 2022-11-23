@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @var \Magento\Framework\View\TemplateEngine\Php $this
+ */
+$productPrice = $this->helper(\Magento\Catalog\Helper\Data::class)->getProduct()->getFinalPrice();
+$helper = $this->helper(\Dorn\Loyalty\Helper\Data::class);
+$shouldDisplayMessage = $helper->shouldDisplayCoinsBackMessage();
+$mightBeReceivedCoins = $helper->calculateCoinsBackAmount($productPrice);
+
+if ($shouldDisplayMessage) {
+    echo __('You will receive %1 coins for purchasing this product.', $mightBeReceivedCoins);
+}
