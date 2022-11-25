@@ -6,12 +6,14 @@ define(
     function (Component, rendererList) {
         'use strict';
 
-        rendererList.push(
-            {
-                type: 'coins',
-                component: 'Dorn_Loyalty/js/view/payment/method-renderer/coins-method'
-            }
-        );
+        if (window.checkoutConfig.payment.coins.enabled) {
+            rendererList.push(
+                {
+                    type: 'coins',
+                    component: 'Dorn_Loyalty/js/view/payment/method-renderer/coins-method'
+                }
+            );
+        }
 
         return Component.extend({});
     }

@@ -4,6 +4,10 @@
     <module name="Dorn_Loyalty">
         <sequence>
             <module name="Magento_Checkout"/>
+            <module name="Magento_Customer"/>
+            <module name="Magento_Ui"/>
+            <module name="Magento_Eav"/>
+            <module name="Magento_Payment"/>
         </sequence>
     </module>
 </config>

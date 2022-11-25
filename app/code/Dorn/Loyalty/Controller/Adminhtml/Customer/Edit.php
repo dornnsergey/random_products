@@ -7,7 +7,6 @@ namespace Dorn\Loyalty\Controller\Adminhtml\Customer;
 use Dorn\Loyalty\Helper\Data;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\NotFoundException;
 
@@ -17,16 +16,15 @@ class Edit extends Action
 
     public function __construct(
         Context $context,
-        private Data $helper,
-        private RequestInterface $request
+        private Data $helper
     ) {
         parent::__construct($context);
     }
 
     public function execute()
     {
-        $orderId = (int) $this->request->getParam('id');
-        if (! $this->helper->isModuleEnabled() || $this->helper->getCoinsTransaction($orderId) === false) {
+        $transaction = $this->helper->getCoinsTransaction();
+        if ($transaction === null || ! $this->helper->isModuleEnabled()) {
             throw new NotFoundException(__('Page Not Found.'));
         }
 

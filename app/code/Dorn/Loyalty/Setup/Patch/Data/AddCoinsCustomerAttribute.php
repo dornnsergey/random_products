@@ -72,6 +72,7 @@ class AddCoinsCustomerAttribute implements DataPatchInterface
                 'type'                  => 'decimal',
                 'is_used_in_grid'       => true,
                 'required'              => false,
+                'default'               => 0
             ]
         );
 

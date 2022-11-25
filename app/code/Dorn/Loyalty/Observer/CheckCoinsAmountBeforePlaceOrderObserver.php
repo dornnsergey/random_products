@@ -6,12 +6,13 @@ namespace Dorn\Loyalty\Observer;
 
 use Dorn\Loyalty\Helper\Data;
 use Dorn\Loyalty\Model\CoinsPaymentMethod;
+use Dorn\Loyalty\Model\Gateway\Config\ConfigProvider;
 use Magento\Customer\Helper\Session\CurrentCustomer;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\LocalizedException;
 
-class CheckCoinsAmountForPurchaseObserver implements ObserverInterface
+class CheckCoinsAmountBeforePlaceOrderObserver implements ObserverInterface
 {
     public function __construct(
         private CurrentCustomer $currentCustomer,
@@ -25,23 +26,19 @@ class CheckCoinsAmountForPurchaseObserver implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        if (! $this->currentCustomer->getCustomerId() || ! $this->helper->isModuleEnabled()) {
-            return;
-        }
-
         $paymentMethod = $observer->getOrder()->getPayment()->getMethod();
-        if ($paymentMethod === CoinsPaymentMethod::METHOD_CODE) {
-            $customerCoinsAmount = $this->currentCustomer
-                ->getCustomer()
-                ->getCustomAttribute('coins')
-                ?->getValue() ?? 0;
+        if ($paymentMethod === ConfigProvider::PAYMENT_CODE) {
+            if (! $this->currentCustomer->getCustomerId() || ! $this->helper->isModuleEnabled()) {
+                return;
+            }
 
-            $grandTotal = $observer->getOrder()->getGrandTotal();
+            $customerCoinsAmount = $this->helper->getCurrentCustomerTotalCoins();
+
+            $grandTotal = $observer->getOrder()->getBaseGrandTotal();
 
             if ($customerCoinsAmount < $grandTotal) {
                 throw new LocalizedException(__('You do not have enough coins for this purchase.'));
             }
         }
     }
-
 }

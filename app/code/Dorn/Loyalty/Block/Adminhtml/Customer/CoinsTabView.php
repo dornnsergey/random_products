@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Dorn\Loyalty\Block\Adminhtml\Customer;
 
+use Dorn\Loyalty\Api\Data\CoinsTransactionInterface;
+use Dorn\Loyalty\Model\ResourceModel\CoinsTransaction\CollectionFactory;
 use Magento\Customer\Model\CustomerIdProvider;
-use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 
 class CoinsTabView extends \Magento\Backend\Block\Widget\Grid\Extended
 {
@@ -13,37 +14,28 @@ class CoinsTabView extends \Magento\Backend\Block\Widget\Grid\Extended
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Backend\Helper\Data $backendHelper,
         private CollectionFactory $collectionFactory,
-        private CustomerIdProvider $customerIdProvider,
+        private CustomerIdProvider $customerProvider,
         array $data = []
     ) {
         parent::__construct($context, $backendHelper, $data);
     }
 
-    protected function _prepareCollection()
+    protected function _prepareCollection(): static
     {
-        $collection = $this->collectionFactory->create($this->customerIdProvider->getCustomerId());
-        $collection->join(
-            'sales_order_coins_transaction',
-            'entity_id = order_id',
-            [
-                'added_by_admin',
-                'coins_received',
-                'coins_spend'
-            ]
-        );
-        $collection->addFieldToSelect(
-            [
-                'increment_id',
-                'base_subtotal',
-                'created_at'
-            ]
+        $collection = $this->collectionFactory->create();
+        $collection->addFieldToFilter(
+            CoinsTransactionInterface::CUSTOMER_ID,
+            $this->customerProvider->getCustomerId()
         );
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
 
-    protected function _prepareColumns()
+    /**
+     * @throws \Exception
+     */
+    protected function _prepareColumns(): static
     {
         $this->addColumn(
             'occasion',
@@ -54,9 +46,9 @@ class CoinsTabView extends \Magento\Backend\Block\Widget\Grid\Extended
         );
 
         $this->addColumn(
-            'base_subtotal',
+            'amount_of_purchase',
             [
-                'index'    => 'base_subtotal',
+                'index'    => 'amount_of_purchase',
                 'header'   => __('Amount of Purchase'),
                 'type'     => 'currency',
                 'currency' => 'order_currency_code',
@@ -119,8 +111,8 @@ class CoinsTabView extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _afterLoadCollection()
     {
         foreach ($this->getCollection() as $item) {
-            /** @var \Magento\Sales\Model\Order $item */
-            $occasion = $item->getAddedByAdmin() ? __('Added by admin') : $item->getIncrementId();
+            /** @var \Dorn\Loyalty\Api\Data\CoinsTransactionInterface $item */
+            $occasion = $item->getAddedByAdmin() ? __('Added by admin') : $item->getOrderId();
 
             $item->setOccasion($occasion);
         }

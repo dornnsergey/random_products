@@ -4,6 +4,6 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="sales_order_place_before">
         <observer name="check_coins_amount_before_place_order"
-                  instance="Dorn\Loyalty\Observer\CheckCoinsAmountForPurchaseObserver" />
+                  instance="Dorn\Loyalty\Observer\CheckCoinsAmountBeforePlaceOrderObserver" />
     </event>
 </config>

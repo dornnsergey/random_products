@@ -4,6 +4,6 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="sales_order_payment_pay">
         <observer name="customer_coins_transaction"
-                  instance="Dorn\Loyalty\Observer\CoinsTransactionObserver"/>
+                  instance="Dorn\Loyalty\Observer\SaveCoinsTransactionObserver"/>
     </event>
 </config>

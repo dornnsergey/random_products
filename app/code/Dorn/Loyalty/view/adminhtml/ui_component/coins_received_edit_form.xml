@@ -25,7 +25,7 @@
         <settings>
             <submitUrl path="coins/customer/save"/>
         </settings>
-        <dataProvider class="Dorn\Loyalty\Ui\Component\Form\EditReceivedCoinsDataProvider"
+        <dataProvider class="Dorn\Loyalty\Ui\Component\Form\Edit\DataProvider"
                       name="coins_received_edit_form_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
@@ -37,12 +37,7 @@
         <settings>
             <label translate="true">Coins Received</label>
         </settings>
-        <field name="customer_id" sortOrder="5" formElement="hidden">
-            <settings>
-                <dataType>text</dataType>
-            </settings>
-        </field>
-        <field name="order_id" sortOrder="5" formElement="hidden">
+        <field name="id" sortOrder="5" formElement="hidden">
             <settings>
                 <dataType>text</dataType>
             </settings>
